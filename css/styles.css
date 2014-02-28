@@ -27,10 +27,15 @@ td div {
   font-size: 8em;
   text-align: center;
   color: red
-
 }
 
 #message-box {
   border: 4px solid black;
   display: none;
 }
+
+h1 {
+  text-align: center;
+  
+}
+
