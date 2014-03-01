@@ -55,126 +55,63 @@ var Board = {
     this.oCoordinates = [];
   },
 
-  checkWin: function(player) {
+  checkThreeInARow: function(coordinateArray) {
+    var result = false;
+    for(var i = 0; i < 2; i++) {  
+      var oneCounter = 0;
+      var twoCounter = 0;
+      var threeCounter = 0;
+      coordinateArray.forEach(function(coordinateSet){
+        if (coordinateSet[i] === 1){
+          oneCounter ++;
+        } else if (coordinateSet[i] === 2){
+          twoCounter ++;
+        } else if (coordinateSet[i] === 3){
+          threeCounter ++;
+        }
+        console.log(oneCounter);
+        if(oneCounter === 3 || twoCounter === 3 || threeCounter === 3){
+          result = true;
+        }
+      });
+    }; 
+    return result;  
+  },
+
+  checkDiagonal: function(coordinateArray) {
     var oneCounter = 0;
     var twoCounter = 0;
-    var threeCounter = 0;
     var result = false;
+    var master1 = ["11", "22", "33"];
+    var master2 = ["13", "22", "31"];
 
-    this.xCoordinates.forEach(function(coordinateSet){
-      if(coordinateSet[1] === 1){
-        oneCounter ++;
-      } else if(coordinateSet[1] === 2){
-        twoCounter ++;
-      } else if(coordinateSet[1] === 3){
-        threeCounter ++;
-      }
-      console.log(oneCounter);
-    });
-    if(oneCounter === 3 || twoCounter === 3 || threeCounter === 3){
-      this.winner = "Player X";
+      coordinateArray.forEach(function(coordinateSet) {
+        if(master1.indexOf(coordinateSet.join("")) > -1) {
+          oneCounter ++;
+        }
+        if(master2.indexOf(coordinateSet.join("")) > -1) {
+          twoCounter ++;
+        }
+      });
+
+      if(oneCounter === 3 || twoCounter === 3){
       result = true;
-    } else {
-      oneCounter = 0;
-      twoCounter = 0;
-      threeCounter = 0;
-      this.xCoordinates.forEach(function(coordinateSet){
-        if(coordinateSet[0] === 1){
-          oneCounter ++;
-        } else if(coordinateSet[0] === 2){
-          twoCounter ++;
-        } else if(coordinateSet[0] === 3){
-          threeCounter ++;
-        }
-      });
-      if(oneCounter === 3 || twoCounter === 3 || threeCounter === 3){
-        this.winner = "Player X";
-        result = true;
-      } else {
-          oneCounter = 0;
-          twoCounter = 0;
-          master1 = ["11", "22", "33"];
-          master2 = ["13", "22", "31"];
-
-            this.xCoordinates.forEach(function(coordinateSet) {
-              if(master1.indexOf(coordinateSet.join("")) > -1) {
-                oneCounter ++;
-              }
-              if(master2.indexOf(coordinateSet.join("")) > -1) {
-                twoCounter ++;
-              }
-            });
-
-            if(oneCounter === 3 || twoCounter === 3){
-            this.winner = "Player X";
-            result = true;
-      }
     }
-    }
+    return result;
+  },
 
-    if(result) {
-      return result;
-    } else {
-      oneCounter = 0;
-      twoCounter = 0;
-      threeCounter = 0;
-      this.oCoordinates.forEach(function(coordinateSet){
-        if(coordinateSet[1] === 1){
-          oneCounter ++;
-        } else if(coordinateSet[1] === 2){
-          twoCounter ++;
-        } else if(coordinateSet[1] === 3){
-          threeCounter ++;
-        }
-      });
-      if(oneCounter === 3 || twoCounter === 3 || threeCounter === 3){
-        this.winner = "Player O";
-        result= true;
-      } else {
-        oneCounter = 0;
-        twoCounter = 0;
-        threeCounter = 0;
-        this.oCoordinates.forEach(function(coordinateSet){
-          if(coordinateSet[0] === 1){
-            oneCounter ++;
-          } else if(coordinateSet[0] === 2){
-            twoCounter ++;
-          } else if(coordinateSet[0] === 3){
-            threeCounter ++;
-          }
-        });
-        if(oneCounter === 3 || twoCounter === 3 || threeCounter === 3){
-          this.winner = "Player O";
-          result = true;
-        } else {
-          oneCounter = 0;
-          twoCounter = 0;
-          master1 = ["11", "22", "33"];
-          master2 = ["13", "22", "31"];
-
-            this.oCoordinates.forEach(function(coordinateSet) {
-              if(master1.indexOf(coordinateSet.join("")) > -1) {
-                oneCounter ++;
-              }
-              if(master2.indexOf(coordinateSet.join("")) > -1) {
-                twoCounter ++;
-              }
-            });
-
-            if(oneCounter === 3 || twoCounter === 3){
-            this.winner = "Player O";
-            result = true;
-           }
-          }
-
-        }
-      return result;   
-      }
+  checkWin: function(player) {
+    var result = false;
+    if(this.checkThreeInARow(this.xCoordinates) || this.checkDiagonal(this.xCoordinates)) {
+      this.winner = "Player X"
+      result = true;
+    } else if (this.checkThreeInARow(this.oCoordinates) || this.checkDiagonal(this.oCoordinates)) {
+      this.winner = "Player O"
+      result = true;
+    } 
+    return result;
     },
-  checkCatsGame: function() {
-    
-  }
-};
+  };
 
 var Game = {
   initialize: function() {

@@ -85,6 +85,22 @@ describe('Board', function(){
     });
   });
 
+  describe('checkThreeInARow', function() {
+    it('returns true if a coordinate array has a three in a row', function() {
+      var testBoard = Board.create();
+      var testCoordinates =[[1,1],[2,1],[3,1]];
+      testBoard.checkThreeInARow(testCoordinates).should.equal(true);
+    });
+  });
+
+  describe('checkDiagonal', function() {
+    it('returns true if there is a win on the main diagonal', function() {
+      var testBoard  = Board.create();
+      var testCoordinates =[[1,1],[2,2],[3,3]];
+      testBoard.checkDiagonal(testCoordinates).should.equal(true);
+    });
+  });
+
   describe('checkWin', function() {
     it('returns true if current player has any three spaces horizontally aligned', function() {
       var testBoard = Board.create();

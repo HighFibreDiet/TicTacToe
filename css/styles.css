@@ -5,12 +5,14 @@
 }
 
 td {
-  border: 4px solid black;
+  border: 4px solid white;
+  background-color: black;
 }
 
 td div {
   width: 150px;
   height: 150px;
+  background-color: black;
 }
 
 .X {
@@ -18,7 +20,8 @@ td div {
   font-size:8em;
   text-align: center;
   vertical-align: middle;
-  color:blue;
+  color:white;
+  background-color: black;
 }
 
 .O {
@@ -26,7 +29,8 @@ td div {
   vertical-align: middle;
   font-size: 8em;
   text-align: center;
-  color: red
+  color: white;
+  background-color: black;
 }
 
 #message-box {
